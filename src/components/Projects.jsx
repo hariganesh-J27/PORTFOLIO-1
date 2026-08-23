@@ -1,256 +1,201 @@
 import React, { useState } from 'react';
-import { FolderGit2, Github, ExternalLink, Sparkles, Database, Cpu, Activity, CreditCard, Film, Clock } from 'lucide-react';
+import LogoLoop from './LogoLoop';
+import { Zap, Brain, Navigation, Database, Film, Cpu, CreditCard, ArrowRight, Github } from 'lucide-react';
 
 export default function Projects() {
   const [filter, setFilter] = useState('all');
 
   const projects = [
     {
-      id: 1,
-      title: 'Movie Ticket Booking System',
-      category: 'dbms',
-      categoryLabel: 'DBMS & Database Architecture',
-      icon: <Film style={{ color: '#00f2fe' }} size={24} />,
-      tech: ['DBMS', 'SQL', 'Database Design', 'Stored Procedures', 'Relational Schema'],
-      description: 'Comprehensive relational database design and application logic for a high-concurrency movie ticket reservation platform.',
-      bullets: [
-        'Designed normalized relational schema covering Users, Movies, Theatres, Shows, Seats, Bookings, and Payments.',
-        'Engineered stored procedures & ACID-compliant transactions to prevent double-booking of seats during concurrent transactions.',
-        'Optimized query execution paths and indexing strategies for sub-second seat availability lookups.',
-      ],
-      github: 'https://github.com',
-      badge: 'Featured Project',
+      id: 'scoliosis',
+      title: 'Wearable Scoliosis Detection System',
+      category: 'hardware',
+      badge: '★ FEATURED HARDWARE',
+      date: 'APRIL — 2024',
+      metrics: ['🎯 94.2% Cobb Angle', '⚡ < 15ms Latency', '📡 4x ADXL345'],
+      description: 'IoT wearable posture monitoring system using ESP32 with accelerometer arrays fed into neural regression models.',
+      tech: ['ESP32', 'PyTorch', 'ADXL345', 'WebSockets'],
+      icon: Zap,
     },
     {
-      id: 2,
+      id: 'disease-prediction',
       title: 'Disease Prediction Using Random Forest',
-      category: 'aiml',
-      categoryLabel: 'Machine Learning & Healthcare AI',
-      icon: <Activity style={{ color: '#00f5a0' }} size={24} />,
-      tech: ['Python', 'Scikit-Learn', 'Random Forest', 'Machine Learning', 'Pandas', 'NumPy'],
-      description: 'Predictive machine learning pipeline designed to assess disease likelihood from patient diagnostic parameters.',
-      bullets: [
-        'Performed thorough data preprocessing, outlier removal, missing value imputation, and feature scaling.',
-        'Executed feature selection and hyperparameter tuning to achieve high cross-validation accuracy and minimal false negatives.',
-        'Trained ensemble Random Forest models and generated feature importance visualizations.',
-      ],
-      github: 'https://github.com',
-      badge: 'AI / ML Spotlight',
+      category: 'ml',
+      badge: 'ML SPOTLIGHT',
+      date: 'OCT — 2024',
+      metrics: ['🎯 94.8% CV Accuracy', '🌲 Gini Importance'],
+      description: 'Predictive clinical diagnostic machine learning pipeline evaluating patient health parameters with cross-validation.',
+      tech: ['Python', 'Scikit-Learn', 'Random Forest', 'Pandas'],
+      icon: Brain,
     },
     {
-      id: 3,
-      title: 'Hospital Management System',
-      category: 'dbms',
-      categoryLabel: 'SQL & Database Engineering',
-      icon: <Database style={{ color: '#4facfe' }} size={24} />,
-      tech: ['SQL', 'Relational DB Design', 'PostgreSQL / MySQL', 'Data Modeling'],
+      id: 'drone',
+      title: 'ROS2 Autonomous Drone Simulation',
+      category: 'hardware',
+      badge: 'ROBOTICS AI',
+      date: 'JAN — 2025',
+      metrics: ['🚁 ROS2 Humble Flight', '🧠 PyTorch LSTM Trajectory'],
+      description: 'Spatial-temporal trajectory forecasting pipeline using ROS2 nodes, PyTorch LSTM networks, and Gazebo 3D simulation.',
+      tech: ['ROS2', 'Gazebo', 'PyTorch LSTM', 'C++'],
+      icon: Navigation,
+    },
+    {
+      id: 'movie-ticket',
+      title: 'Movie Ticket Booking System',
+      category: 'cloud',
+      badge: 'DBMS & CONCURRENCY',
+      date: 'AUG — 2024',
+      metrics: ['🎟️ High-Concurrency ACID', '⚡ Sub-Second Query'],
+      description: 'Relational database schema and stored procedures preventing race condition double-booking with ACID transactions.',
+      tech: ['PostgreSQL', 'SQL Transactions', 'Node.js', 'Redis'],
+      icon: Film,
+    },
+    {
+      id: 'hospital',
+      title: 'Hospital Management Architecture',
+      category: 'cloud',
+      badge: 'SQL & RELATIONAL DB',
+      date: 'DEC — 2024',
+      metrics: ['🏥 RBAC Data Security', '📊 Automated Billing'],
       description: 'End-to-end database management system for hospital operations, patient records, staff scheduling, and billing.',
-      bullets: [
-        'Structured complex entity-relationship (ER) diagrams connecting Patients, Medical Staff, Appointments, Diagnostics, and Invoices.',
-        'Implemented stored procedures for automated patient registration, appointment slot allocation, and history retrieval.',
-        'Applied role-based data view security for sensitive medical record management.',
-      ],
-      github: 'https://github.com',
+      tech: ['PostgreSQL', 'Stored Procedures', 'RBAC Security', 'ER Modeling'],
+      icon: Database,
     },
     {
-      id: 4,
+      id: 'os-sim',
       title: 'Operating Systems Simulation Suite',
-      category: 'systems',
-      categoryLabel: 'Systems Programming & C/C++',
-      icon: <Cpu style={{ color: '#7f00ff' }} size={24} />,
-      tech: ['C / C++', 'Operating Systems', 'Process Scheduling', 'Memory Allocation', 'Concurrency'],
+      category: 'hardware',
+      badge: 'SYSTEMS PROGRAMMING',
+      date: 'MAR — 2024',
+      metrics: ['⚙️ CPU Schedulers', '🔒 Semaphores & Mutexes'],
       description: 'Simulation environment for low-level operating system algorithms including process management and memory allocation.',
-      bullets: [
-        'Simulated CPU scheduling algorithms (FCFS, SJF, Round Robin, Priority Scheduling) to compare turnaround & waiting times.',
-        'Implemented process synchronization primitives (Semaphores, Mutexes) solving classic concurrency problems.',
-        'Simulated dynamic memory allocation algorithms (First Fit, Best Fit, Worst Fit) and page replacement mechanisms.',
-      ],
-      github: 'https://github.com',
-      badge: 'In Progress',
-      inProgress: true,
+      tech: ['C / C++', 'POSIX Threads', 'Mutexes', 'Memory Mgmt'],
+      icon: Cpu,
     },
-    {
-      id: 5,
-      title: 'FinTech Web Application',
-      category: 'web',
-      categoryLabel: 'Web Engineering & Frontend UI',
-      icon: <CreditCard style={{ color: '#ffb703' }} size={24} />,
-      tech: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Web Design', 'Flexbox & Grid'],
-      description: 'Modern, high-performance web dashboard for personal financial tracking, investment overview, and expense metrics.',
-      bullets: [
-        'Translated wireframe concepts into a pixel-perfect, responsive frontend user interface.',
-        'Utilized semantic HTML5 and modern CSS Flexbox/Grid for fluid layout adaptability across screen sizes.',
-        'Integrated interactive client-side JavaScript for dynamic DOM updates and budget analytics preview.',
-      ],
-      github: 'https://github.com',
-    },
-  ];
-
-  const categories = [
-    { id: 'all', label: 'All Projects' },
-    { id: 'aiml', label: 'AI & Machine Learning' },
-    { id: 'dbms', label: 'DBMS & SQL' },
-    { id: 'systems', label: 'Systems (C/C++)' },
-    { id: 'web', label: 'Web Engineering' },
   ];
 
   const filteredProjects = filter === 'all'
     ? projects
-    : projects.filter(p => p.category === filter);
+    : projects.filter(p => p.category === filter || (filter === 'hardware' && (p.category === 'hardware' || p.category === 'ml')));
 
   return (
-    <section id="projects" className="section">
-      <div className="container">
+    <section id="projects" className="section" style={{ position: 'relative', zIndex: 2, paddingTop: '7.5rem', background: '#FDFFF5' }}>
+      <div className="container" style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2.5rem' }}>
 
-        <div className="section-title-wrap">
-          <div className="section-badge">
-            <FolderGit2 size={14} />
-            <span>Featured Portfolio</span>
+        {/* Chapter 03 Watermark */}
+        <div style={{ marginBottom: '2.5rem', textAlign: 'left' }}>
+          <div style={{ fontFamily: "'Outfit', sans-serif", fontSize: 'clamp(3.5rem, 7vw, 5.5rem)', fontWeight: 900, color: 'rgba(0, 0, 0, 0.08)', lineHeight: 0.9, marginBottom: '0.2rem', letterSpacing: '-0.02em' }}>
+            03
           </div>
-          <h2 className="section-title">
-            Key Engineering <span className="gradient-text">Projects</span>
+          <div style={{ fontFamily: 'var(--font-code)', fontSize: '0.75rem', fontWeight: 700, color: '#71717a', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+            CHAPTER 03
+          </div>
+          <h2 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 'clamp(2.4rem, 4.5vw, 3.4rem)', fontWeight: 900, color: '#000000', letterSpacing: '-0.02em', textTransform: 'uppercase', margin: 0 }}>
+            SELECTED WORKS
           </h2>
-          <p className="section-subtitle">
-            Explore my work in AI/ML model development, relational database systems, and low-level software engineering.
-          </p>
         </div>
 
-        {/* Project Filters */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
-          {categories.map((cat) => {
-            const isActive = filter === cat.id;
-            return (
-              <button
-                key={cat.id}
-                onClick={() => setFilter(cat.id)}
-                style={{
-                  padding: '0.55rem 1.15rem',
-                  borderRadius: '9999px',
-                  background: isActive ? 'linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(127, 0, 255, 0.2))' : 'rgba(255, 255, 255, 0.04)',
-                  border: isActive ? '1px solid #00f2fe' : '1px solid var(--border-subtle)',
-                  color: isActive ? '#00f2fe' : 'var(--text-muted)',
-                  fontSize: '0.88rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  boxShadow: isActive ? '0 0 15px rgba(0, 242, 254, 0.2)' : 'none',
-                }}
-              >
-                {cat.label}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Projects Cards Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '2rem' }}>
-          {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className="glass-card"
+        {/* Filter Category Badges */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', flexWrap: 'wrap', marginTop: '1.5rem', marginBottom: '2.5rem', position: 'relative', zIndex: 10 }}>
+          {[
+            { id: 'all', label: 'All Systems' },
+            { id: 'hardware', label: 'Wearable IoT & Robotics' },
+            { id: 'ml', label: 'AI / ML & Vision' },
+            { id: 'cloud', label: 'Cloud & Telemetry' },
+          ].map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setFilter(cat.id)}
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
+                border: filter === cat.id ? '1px solid #000000' : '1px solid rgba(0,0,0,0.2)',
+                color: filter === cat.id ? '#FDFFF5' : '#27272a',
+                background: filter === cat.id ? '#000000' : 'rgba(0,0,0,0.05)',
+                padding: '0.55rem 1.25rem',
+                borderRadius: '50px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
               }}
             >
-              <div>
-                {/* Header Row */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.2rem' }}>
-                  <div
-                    style={{
-                      width: '48px',
-                      height: '48px',
-                      borderRadius: '12px',
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid var(--border-subtle)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    {project.icon}
-                  </div>
-
-                  {project.badge && (
-                    <span
-                      style={{
-                        fontSize: '0.75rem',
-                        fontWeight: 700,
-                        padding: '0.25rem 0.65rem',
-                        borderRadius: '9999px',
-                        background: project.inProgress
-                          ? 'rgba(255, 183, 3, 0.12)'
-                          : 'rgba(0, 242, 254, 0.12)',
-                        border: project.inProgress
-                          ? '1px solid rgba(255, 183, 3, 0.4)'
-                          : '1px solid rgba(0, 242, 254, 0.4)',
-                        color: project.inProgress ? '#ffb703' : '#00f2fe',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.3rem',
-                      }}
-                    >
-                      {project.inProgress && <Clock size={12} />}
-                      {project.badge}
-                    </span>
-                  )}
-                </div>
-
-                {/* Title & Description */}
-                <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#fff', marginBottom: '0.6rem' }}>
-                  {project.title}
-                </h3>
-
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', marginBottom: '1.25rem', lineHeight: 1.6 }}>
-                  {project.description}
-                </p>
-
-                {/* Bullet Highlights */}
-                <ul style={{ listStyle: 'disc', paddingLeft: '1.2rem', marginBottom: '1.5rem', color: 'var(--text-muted)', fontSize: '0.88rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  {project.bullets.map((b, idx) => (
-                    <li key={idx}>{b}</li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Footer Row: Tech Stack Pills & GitHub Button */}
-              <div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1.5rem' }}>
-                  {project.tech.map((t, idx) => (
-                    <span
-                      key={idx}
-                      style={{
-                        fontSize: '0.76rem',
-                        fontFamily: 'var(--font-code)',
-                        padding: '0.2rem 0.55rem',
-                        borderRadius: '4px',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid var(--border-subtle)',
-                        color: '#94a3b8',
-                      }}
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn btn-secondary"
-                  style={{ width: '100%', padding: '0.65rem 1rem', fontSize: '0.88rem' }}
-                >
-                  <Github size={16} />
-                  <span>View Code on GitHub</span>
-                </a>
-              </div>
-
-            </div>
+              {cat.label}
+            </button>
           ))}
         </div>
+      </div>
 
+      {/* React Bits LogoLoop Infinite Projects Marquee */}
+      <div className="project-loop-wrapper">
+        <LogoLoop
+          logos={filteredProjects}
+          speed={60}
+          direction="left"
+          gap={32}
+          pauseOnHover={true}
+          hoverSpeed={0}
+          fadeOut={true}
+          fadeOutColor="#FDFFF5"
+          ariaLabel="Featured engineering projects marquee"
+          renderItem={(project, key) => {
+            const IconComp = project.icon;
+            return (
+              <div key={key} className="project-loop-card inspect-project-trigger" data-project={project.id}>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ background: '#000000', border: '1px solid #000000', padding: '0.2rem 0.65rem', borderRadius: '50px', fontFamily: 'var(--font-code)', fontSize: '0.72rem', color: '#FDFFF5', fontWeight: 700 }}>
+                        {project.badge}
+                      </span>
+                      <span className="cosmic-date-tag" style={{ fontSize: '0.75rem', padding: '0.2rem 0.65rem', background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.2)', color: '#000000', borderRadius: '4px', fontFamily: 'var(--font-code)' }}>
+                        {project.date}
+                      </span>
+                    </div>
+                    <a href="https://github.com" target="_blank" rel="noreferrer" className="bento-icon-btn" title="GitHub Repository" style={{ color: '#000000', transition: 'color 0.3s ease' }}>
+                      <Github size={18} />
+                    </a>
+                  </div>
+
+                  <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#000000', margin: '0 0 0.75rem 0', transition: 'color 0.3s ease', lineHeight: 1.3 }}>
+                    {project.title}
+                  </h3>
+
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1rem' }}>
+                    {project.metrics.map((m, mIdx) => (
+                      <span key={mIdx} className="metric-pill-badge" style={{ background: 'rgba(0, 0, 0, 0.08)', border: '1px solid rgba(0, 0, 0, 0.25)', color: '#000000', fontSize: '0.74rem', fontWeight: 700, padding: '0.2rem 0.6rem', borderRadius: '50px', fontFamily: 'var(--font-code)', transition: 'all 0.3s ease' }}>
+                        {m}
+                      </span>
+                    ))}
+                  </div>
+
+                  <p className="project-card-desc" style={{ color: '#52525b', fontSize: '0.9rem', lineHeight: 1.6, margin: '0 0 1.25rem 0', transition: 'color 0.3s ease' }}>
+                    {project.description}
+                  </p>
+
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '1.5rem' }}>
+                    {project.tech.map((t, tIdx) => (
+                      <span key={tIdx} className="cosmic-pill-tag" style={{ padding: '0.25rem 0.65rem', fontSize: '0.75rem', background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.2)', color: '#000000', borderRadius: '4px', fontFamily: 'var(--font-code)', transition: 'all 0.3s ease' }}>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <button className="btn btn-secondary inspect-project-btn" style={{ width: '100%', padding: '0.7rem 1rem', fontSize: '0.85rem', justifyContent: 'center', background: '#000000', color: '#FDFFF5', border: '1px solid #000000', borderRadius: '6px', cursor: 'pointer', fontFamily: 'var(--font-code)', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', transition: 'all 0.3s ease' }}>
+                  <span>Inspect Architecture Flow</span>
+                  <ArrowRight size={15} style={{ marginLeft: '0.4rem' }} />
+                </button>
+              </div>
+            );
+          }}
+        />
+      </div>
+
+      <div className="container" style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2.5rem' }}>
+        {/* Link to Dedicated Projects Page */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+          <a href="/projects.html" className="btn btn-secondary" style={{ padding: '0.85rem 2rem', fontSize: '0.95rem', display: 'inline-flex', alignItems: 'center', gap: '0.6rem', border: '1.5px solid #000000', fontWeight: 700 }}>
+            <span>Explore All Technical Case Studies &amp; Flowcharts</span>
+          </a>
+        </div>
       </div>
     </section>
   );

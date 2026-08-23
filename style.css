@@ -837,48 +837,111 @@ header.scrolled, #navbar.scrolled {
   will-change: opacity, transform;
 }
 
-/* Hover Invert Effect: White to Solid Black (#000000) */
+/* ==========================================================================
+   CHAPTER 02: SERVICES INTERACTIVE EXPANDABLE BENTO SYSTEM
+   ========================================================================== */
 .service-interactive-card {
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
-  padding: 2.25rem;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 2.2rem 2.4rem;
   background: #FDFFF5;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
 }
 
 .service-interactive-card:hover {
-  background: #000000 !important;
-  border-color: #000000 !important;
-  transform: translateY(-5px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
+  border-color: #000000;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
 
-.service-interactive-card:hover h3 {
+/* Collapsible Content Drawer */
+.service-drawer-content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, margin 0.35s ease;
+  margin-top: 0;
+}
+
+.service-interactive-card.is-expanded {
+  background: #000000 !important;
+  border-color: #000000 !important;
+  transform: translateY(-4px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
+}
+
+.service-interactive-card.is-expanded h3 {
   color: #FDFFF5 !important;
 }
 
-.service-interactive-card:hover p {
+.service-interactive-card.is-expanded .service-subtitle {
+  color: #a1a1aa !important;
+}
+
+.service-interactive-card.is-expanded p {
   color: #d4d4d8 !important;
 }
 
-.service-interactive-card:hover i,
-.service-interactive-card:hover svg {
+.service-interactive-card.is-expanded i,
+.service-interactive-card.is-expanded svg {
   color: #FDFFF5 !important;
   stroke: #FDFFF5 !important;
 }
 
-.service-interactive-card:hover .service-watermark-num {
-  color: rgba(255, 255, 255, 0.28) !important;
+.service-interactive-card.is-expanded .service-watermark-num {
+  color: rgba(255, 255, 255, 0.25) !important;
 }
 
-.service-interactive-card:hover .service-tag-badge {
-  border-color: rgba(255, 255, 255, 0.35) !important;
+.service-interactive-card.is-expanded .service-tag-badge {
+  border-color: rgba(255, 255, 255, 0.3) !important;
   color: #FDFFF5 !important;
   background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.service-interactive-card.is-expanded .service-drawer-content {
+  max-height: 500px;
+  opacity: 1;
+  margin-top: 1.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.service-expand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-code);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.45rem 1.1rem;
+  border-radius: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.05);
+  color: #000000;
+  transition: all 0.25s ease;
+  margin-top: 1.4rem;
+  width: fit-content;
+}
+
+.service-interactive-card:hover .service-expand-btn {
+  background: #000000;
+  color: #FDFFF5;
+  border-color: #000000;
+}
+
+.service-interactive-card.is-expanded .service-expand-btn {
+  background: #FDFFF5 !important;
+  color: #000000 !important;
+  border-color: #FDFFF5 !important;
 }
 
 /* About Section Detail Cards Hover Invert */
@@ -1010,13 +1073,472 @@ header.scrolled, #navbar.scrolled {
   color: #FDFFF5 !important;
 }
 
+/* ==========================================================================
+   CERTIFICATE CARDS & HOVER SYSTEM
+   ========================================================================== */
+.cert-interactive-card {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  background: #FDFFF5;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.cert-interactive-card:hover {
+  background: #000000 !important;
+  border-color: #000000 !important;
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
+}
+
+.cert-interactive-card .cert-image-box {
+  width: 100%;
+  height: 195px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  margin-bottom: 1.25rem;
+  background: #f4f4f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.35s ease;
+}
+
+.cert-interactive-card .cert-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.cert-interactive-card:hover .cert-image-box {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.cert-interactive-card:hover .cert-image-box img {
+  transform: scale(1.04);
+}
+
+.cert-interactive-card:hover h3 {
+  color: #FDFFF5 !important;
+}
+
+.cert-interactive-card:hover .cert-issuer {
+  color: #a1a1aa !important;
+}
+
+.cert-interactive-card:hover .cert-desc {
+  color: #d4d4d8 !important;
+}
+
+.cert-interactive-card:hover .cert-id-tag {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  color: #FDFFF5 !important;
+}
+
+.cert-interactive-card:hover .cert-id-label {
+  color: #a1a1aa !important;
+}
+
+.cert-interactive-card:hover .cert-action-btn {
+  background: #FDFFF5 !important;
+  color: #000000 !important;
+  border-color: #FDFFF5 !important;
+}
+
+.cert-interactive-card:hover .cert-badge-date {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #FDFFF5 !important;
+}
+
+.cert-interactive-card:hover .cert-icon-wrap {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: #FDFFF5 !important;
+}
+
 @media (max-width: 992px) {
   .about-two-col-grid,
   .services-two-col-grid,
-  .radar-two-col-grid {
+  .radar-two-col-grid,
+  .cert-three-col-grid {
     grid-template-columns: 1fr !important;
     gap: 2rem !important;
   }
 }
+
+/* ==========================================================================
+   PROJECT LOGO LOOP CONTINUOUS MARQUEE SYSTEM
+   ========================================================================== */
+.project-loop-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 1.5rem 0 2.5rem 0;
+  margin-bottom: 2.5rem;
+}
+
+.project-loop-wrapper::before,
+.project-loop-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(30px, 8vw, 140px);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.project-loop-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, #FDFFF5 0%, rgba(253, 255, 245, 0) 100%);
+}
+
+.project-loop-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, #FDFFF5 0%, rgba(253, 255, 245, 0) 100%);
+}
+
+.project-loop-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  user-select: none;
+}
+
+.project-loop-card {
+  width: 380px;
+  min-width: 380px;
+  flex: 0 0 380px;
+  margin-right: 2rem;
+  background: #FDFFF5;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.project-loop-card:hover {
+  background: #000000 !important;
+  border-color: #000000 !important;
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.2);
+}
+
+.project-loop-card:hover h3 {
+  color: #FDFFF5 !important;
+}
+
+.project-loop-card:hover .project-card-desc {
+  color: #d4d4d8 !important;
+}
+
+.project-loop-card:hover .metric-pill-badge {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: #FDFFF5 !important;
+}
+
+.project-loop-card:hover .cosmic-pill-tag {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #FDFFF5 !important;
+}
+
+.project-loop-card:hover .cosmic-date-tag {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: #FDFFF5 !important;
+}
+
+.project-loop-card:hover .inspect-project-btn {
+  background: #FDFFF5 !important;
+  color: #000000 !important;
+  border-color: #FDFFF5 !important;
+}
+
+.project-loop-card:hover .bento-icon-btn {
+  color: #FDFFF5 !important;
+}
+
+@media (max-width: 768px) {
+  .project-loop-card {
+    width: 320px;
+    min-width: 320px;
+    flex: 0 0 320px;
+    margin-right: 1.25rem;
+    padding: 1.4rem;
+  }
+}
+
+/* ==========================================================================
+   MODULE: REACT BITS PRO SIMPLE GRAPH ENGINE
+   Animated line graph with custom interactions and timeline tracking
+   ========================================================================== */
+.simple-graph-container {
+  position: relative;
+  width: 100%;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  background: #FDFFF5;
+  padding: 2.2rem 2.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  margin-top: 2rem;
+  transition: all 0.4s ease;
+}
+
+.simple-graph-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.simple-graph-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  color: #000000;
+  padding: 0.35rem 0.85rem;
+  border-radius: 50px;
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.simple-graph-svg-wrap {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+  user-select: none;
+}
+
+.simple-graph-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  display: block;
+}
+
+/* Grid & Axis */
+.graph-grid-line {
+  stroke: rgba(0, 0, 0, 0.08);
+  stroke-dasharray: 4 4;
+  stroke-width: 1;
+}
+
+.graph-axis-text {
+  font-family: var(--font-code);
+  font-size: 11px;
+  font-weight: 700;
+  fill: #71717a;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Animated Path & Area */
+.graph-path-line {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: graphDraw 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes graphDraw {
+  0% { stroke-dashoffset: 1200; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.graph-area-fill {
+  fill: url(#simple-graph-gradient);
+  opacity: 0;
+  animation: graphFadeIn 1.5s ease 0.5s forwards;
+}
+
+@keyframes graphFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 0.85; }
+}
+
+/* Interactive Nodes */
+.graph-node-group {
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.graph-node-dot {
+  fill: #FDFFF5;
+  stroke: #000000;
+  stroke-width: 3;
+  r: 7;
+  transition: all 0.3s ease;
+}
+
+.graph-node-ping {
+  fill: #000000;
+  opacity: 0.2;
+  r: 14;
+  animation: nodePing 2.5s infinite ease-in-out;
+  transform-origin: center;
+}
+
+@keyframes nodePing {
+  0%, 100% { transform: scale(0.9); opacity: 0.15; }
+  50% { transform: scale(1.4); opacity: 0.35; }
+}
+
+.graph-node-group:hover .graph-node-dot,
+.graph-node-group.active .graph-node-dot {
+  fill: #000000;
+  stroke: #FDFFF5;
+  r: 9;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.4));
+}
+
+.graph-node-group:hover .graph-node-ping,
+.graph-node-group.active .graph-node-ping {
+  opacity: 0.45;
+  transform: scale(1.6);
+}
+
+/* Tooltip */
+.simple-graph-tooltip {
+  position: absolute;
+  top: -85px;
+  left: 0;
+  transform: translate(-50%, 0);
+  background: #000000;
+  color: #FDFFF5;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 20;
+  white-space: nowrap;
+}
+
+.simple-graph-tooltip.visible {
+  opacity: 1;
+}
+
+.simple-graph-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #000000;
+}
+
+/* 3 Milestone Clean Cards */
+.simple-graph-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .simple-graph-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.graph-milestone-card {
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  background: #FDFFF5;
+  padding: 1.75rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.graph-milestone-card:hover,
+.graph-milestone-card.active {
+  background: #000000 !important;
+  border-color: #000000 !important;
+  transform: translateY(-5px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.2);
+}
+
+.graph-milestone-card:hover h3,
+.graph-milestone-card.active h3 {
+  color: #FDFFF5 !important;
+}
+
+.graph-milestone-card:hover .milestone-degree,
+.graph-milestone-card.active .milestone-degree {
+  color: #d4d4d8 !important;
+}
+
+.graph-milestone-card:hover .milestone-year-badge,
+.graph-milestone-card.active .milestone-year-badge {
+  background: #FDFFF5 !important;
+  color: #000000 !important;
+  border-color: #FDFFF5 !important;
+}
+
+.graph-milestone-card:hover .milestone-icon-wrap,
+.graph-milestone-card.active .milestone-icon-wrap {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #FDFFF5 !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.graph-milestone-card:hover svg,
+.graph-milestone-card.active svg {
+  stroke: #FDFFF5 !important;
+}
+
+.milestone-year-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 50px;
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  color: #000000;
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  transition: all 0.3s ease;
+}
+
+
 
 

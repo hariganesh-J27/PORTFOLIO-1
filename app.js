@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof initSingleCertSlider === 'function') initSingleCertSlider();
   if (typeof initFlyingPostersWebGL === 'function') initFlyingPostersWebGL();
   if (typeof initScrollExpand === 'function') initScrollExpand();
+  if (typeof initProjectLogoLoop === 'function') initProjectLogoLoop();
+  if (typeof initServiceExpandableCards === 'function') initServiceExpandableCards();
+  if (typeof initSimpleGraph === 'function') initSimpleGraph();
 });
 
 
@@ -826,9 +829,6 @@ function initModalSystem() {
       if (type === 'scoliosis') {
         openModal(`
           <div style="color: #000000;">
-            <div style="width: 100%; max-height: 280px; border-radius: 10px; overflow: hidden; margin-bottom: 1.5rem; border: 1px solid rgba(0,0,0,0.15);">
-              <img src="scoliosis_hardware_mockup.jpg" alt="Wearable Scoliosis Detection System" style="width: 100%; height: 100%; object-fit: cover;" />
-            </div>
             <h2 style="font-size: 1.6rem; font-weight: 900; color: #000000; margin-bottom: 0.4rem;">Wearable Scoliosis Detection System</h2>
             <div style="font-size: 0.85rem; color: #27272a; font-family: var(--font-code); font-weight: 700; margin-bottom: 1.25rem;">ESP32 Accelerometer Telemetry + Neural Cobb Angle Regression</div>
             <p style="color: #27272a; font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem;">
@@ -943,6 +943,328 @@ function initModalSystem() {
         `);
       }
     });
+  });
+}
+
+/* ==========================================================================
+   MODULE: SERVICE EXPANDABLE BENTO CARDS ENGINE
+   ========================================================================== */
+function initServiceExpandableCards() {
+  const cards = document.querySelectorAll('.service-interactive-card');
+  if (!cards.length) return;
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('is-expanded');
+      const isExpanded = card.classList.contains('is-expanded');
+      const btnText = card.querySelector('.service-expand-btn-text');
+      const btnIcon = card.querySelector('.service-expand-icon');
+
+      if (isExpanded) {
+        if (btnText) btnText.textContent = 'Hide Content';
+        if (btnIcon) btnIcon.style.transform = 'rotate(180deg)';
+      } else {
+        if (btnText) btnText.textContent = 'Click to View Content';
+        if (btnIcon) btnIcon.style.transform = 'rotate(0deg)';
+      }
+    });
+  });
+}
+
+/* ==========================================================================
+   MODULE: REACT BITS PRO SIMPLE GRAPH ENGINE
+   Animated line graph with custom interactions and timeline tracking
+   ========================================================================== */
+const simpleGraphMilestones = {
+  sishya: {
+    id: 'sishya',
+    name: 'Sishya School, Hosur',
+    degree: 'Senior Secondary & Secondary Schooling',
+    years: 'Completed',
+    location: 'Hosur, Tamil Nadu',
+    badge: 'Foundation',
+    x: 180,
+    y: 220
+  },
+  vit: {
+    id: 'vit',
+    name: 'VIT Chennai',
+    degree: 'B.Tech in Computer Science & Engineering (Core)',
+    years: '2025 — 2029',
+    location: 'Chennai, Tamil Nadu',
+    badge: 'Dual Degree 1',
+    x: 520,
+    y: 110
+  },
+  iitm: {
+    id: 'iitm',
+    name: 'IIT Madras',
+    degree: 'BS in Data Science & Applications',
+    years: '2025 — 2029',
+    location: 'Chennai (Online / Hybrid)',
+    badge: 'Dual Degree 2',
+    x: 820,
+    y: 60
+  }
+};
+
+function initSimpleGraph() {
+  const container = document.getElementById('simple-graph-wrapper');
+  if (!container) return;
+
+  const svgWrap = container.querySelector('.simple-graph-svg-wrap');
+  const svg = container.querySelector('.simple-graph-svg');
+  const tooltip = document.getElementById('simple-graph-tooltip');
+  const cursorLine = document.getElementById('graph-cursor-line');
+  const nodes = container.querySelectorAll('.graph-node-group');
+  const cards = container.querySelectorAll('.graph-milestone-card');
+
+  function showMilestone(key) {
+    const data = simpleGraphMilestones[key];
+    if (!data) return;
+
+    // Highlight node
+    nodes.forEach(node => {
+      node.classList.toggle('active', node.dataset.milestone === key);
+    });
+
+    // Highlight card
+    cards.forEach(card => {
+      card.classList.toggle('active', card.dataset.milestone === key);
+    });
+
+    // Move cursor line and show
+    if (cursorLine) {
+      cursorLine.setAttribute('x1', data.x);
+      cursorLine.setAttribute('x2', data.x);
+      cursorLine.style.opacity = '1';
+    }
+
+    if (tooltip && svgWrap) {
+      const wrapRect = svgWrap.getBoundingClientRect();
+      const scaleX = wrapRect.width / 900;
+      const posX = data.x * scaleX;
+      const posY = (data.y * (wrapRect.height / 320)) - 10;
+
+      tooltip.innerHTML = `
+        <div style="font-family: var(--font-code); font-size: 0.7rem; font-weight: 700; color: #a1a1aa; text-transform: uppercase; margin-bottom: 0.2rem;">
+          ${data.years} • ${data.badge}
+        </div>
+        <div style="font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 800; color: #FDFFF5; line-height: 1.2;">
+          ${data.name}
+        </div>
+        <div style="font-size: 0.8rem; color: #e4e4e7; font-weight: 600; margin-top: 0.2rem;">
+          ${data.degree}
+        </div>
+      `;
+
+      tooltip.style.left = `${posX}px`;
+      tooltip.style.top = `${posY - 75}px`;
+      tooltip.classList.add('visible');
+    }
+  }
+
+  function hideMilestone() {
+    nodes.forEach(node => node.classList.remove('active'));
+    cards.forEach(card => card.classList.remove('active'));
+    if (cursorLine) {
+      cursorLine.style.opacity = '0';
+    }
+    if (tooltip) {
+      tooltip.classList.remove('visible');
+    }
+  }
+
+  // Node interactions
+  nodes.forEach(node => {
+    node.addEventListener('mouseenter', () => {
+      showMilestone(node.dataset.milestone);
+    });
+    node.addEventListener('mouseleave', () => {
+      hideMilestone();
+    });
+  });
+
+  // Card interactions
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      showMilestone(card.dataset.milestone);
+    });
+    card.addEventListener('mouseleave', () => {
+      hideMilestone();
+    });
+  });
+
+  // Start with clean normal cursor state
+  hideMilestone();
+}
+
+/* ==========================================================================
+   MODULE: REACT BITS LOGOLOOP MARQUEE FOR PROJECTS
+   ========================================================================== */
+function initProjectLogoLoop() {
+  const container = document.getElementById('project-loop-container');
+  const track = document.getElementById('project-loop-track');
+  if (!container || !track) return;
+
+  const originalCards = Array.from(track.children);
+  if (originalCards.length === 0) return;
+
+  // Duplicate cards for seamless continuous wrapping
+  const copyCount = 3;
+  for (let i = 0; i < copyCount; i++) {
+    originalCards.forEach(card => {
+      const clone = card.cloneNode(true);
+      track.appendChild(clone);
+    });
+  }
+
+  let offset = 0;
+  let velocity = 55; // pixels per second
+  const targetVelocity = 55;
+  let isHovered = false;
+  let lastTimestamp = null;
+  const SMOOTH_TAU = 0.25;
+
+  container.addEventListener('mouseenter', () => {
+    isHovered = true;
+  });
+
+  container.addEventListener('mouseleave', () => {
+    isHovered = false;
+  });
+
+  function animate(timestamp) {
+    if (lastTimestamp === null) lastTimestamp = timestamp;
+    const deltaTime = Math.min(0.1, Math.max(0, (timestamp - lastTimestamp) / 1000));
+    lastTimestamp = timestamp;
+
+    const target = isHovered ? 0 : targetVelocity;
+    const easingFactor = 1 - Math.exp(-deltaTime / SMOOTH_TAU);
+    velocity += (target - velocity) * easingFactor;
+
+    // Calculate sequence width
+    let singleSequenceWidth = 0;
+    originalCards.forEach(card => {
+      const style = window.getComputedStyle(card);
+      const marginRight = parseFloat(style.marginRight) || 32;
+      singleSequenceWidth += card.offsetWidth + marginRight;
+    });
+
+    if (singleSequenceWidth > 0) {
+      offset = (offset + velocity * deltaTime) % singleSequenceWidth;
+      track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  requestAnimationFrame(animate);
+
+  // Category Filter interactions
+  const filterButtons = document.querySelectorAll('.project-filter-btn');
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => {
+        b.classList.remove('active');
+        b.style.background = 'rgba(0,0,0,0.05)';
+        b.style.color = '#27272a';
+        b.style.borderColor = 'rgba(0,0,0,0.2)';
+      });
+      btn.classList.add('active');
+      btn.style.background = '#000000';
+      btn.style.color = '#FDFFF5';
+      btn.style.borderColor = '#000000';
+
+      const filterVal = btn.getAttribute('data-filter');
+      const allCards = track.querySelectorAll('.project-loop-card');
+      allCards.forEach(c => {
+        const cat = c.getAttribute('data-category') || '';
+        if (filterVal === 'all' || cat.includes(filterVal)) {
+          c.style.opacity = '1';
+          c.style.filter = 'grayscale(0%)';
+        } else {
+          c.style.opacity = '0.25';
+          c.style.filter = 'grayscale(100%)';
+        }
+      });
+    });
+  });
+
+  // Attach modal trigger delegation to track so clones also work seamlessly
+  track.addEventListener('click', (e) => {
+    const triggerBtn = e.target.closest('.inspect-project-btn');
+    if (!triggerBtn) return;
+    e.preventDefault();
+    const type = triggerBtn.getAttribute('data-project');
+    if (!type) return;
+
+    if (type === 'scoliosis') {
+      openModal(`
+        <div style="color: #000000;">
+          <h2 style="font-size: 1.6rem; font-weight: 900; color: #000000; margin-bottom: 0.4rem;">Wearable Scoliosis Detection System</h2>
+          <div style="font-size: 0.85rem; color: #27272a; font-family: var(--font-code); font-weight: 700; margin-bottom: 1.25rem;">ESP32 Accelerometer Telemetry + Neural Cobb Angle Regression</div>
+          <p style="color: #27272a; font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem;">
+            Designed and built a multi-sensor wearable posture monitoring vest. Dual ADXL345 3-axis accelerometer sensors capture continuous spinal tilt data, streamed over ESP32 WebSockets to a trained Random Forest &amp; PyTorch regression model with real-time 3D spine visualization.
+          </p>
+          <div style="background: rgba(0, 0, 0, 0.05); padding: 1rem; border-radius: 8px; border: 1px solid rgba(0, 0, 0, 0.2); font-family: var(--font-code); font-size: 0.82rem; color: #000000; margin-bottom: 1.5rem;">
+            <strong>Key Metrics:</strong> 94.2% Cobb Angle Accuracy | &lt; 15ms Real-Time Latency | 4x ADXL345 Telemetry
+          </div>
+        </div>
+      `);
+    } else if (type === 'disease' || type === 'disease-prediction') {
+      openModal(`
+        <div style="color: #000000;">
+          <h2 style="font-size: 1.6rem; font-weight: 900; color: #000000; margin-bottom: 0.4rem;">Disease Prediction Using Random Forest</h2>
+          <div style="font-size: 0.85rem; color: #27272a; font-family: var(--font-code); font-weight: 700; margin-bottom: 1.25rem;">Clinical Diagnostic Machine Learning Pipeline</div>
+          <p style="color: #27272a; font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem;">
+            Engineered a predictive healthcare machine learning pipeline evaluating patient clinical parameters with StandardScaler normalization, Gini impurity feature ranking, and cross-validation hyperparameter tuning.
+          </p>
+          <div style="background: rgba(0, 0, 0, 0.05); padding: 1rem; border-radius: 8px; border: 1px solid rgba(0, 0, 0, 0.2); font-family: var(--font-code); font-size: 0.82rem; color: #000000;">
+            <strong>Key Metrics:</strong> 94.8% CV Accuracy | Minimal False Negatives | Scikit-Learn Ensemble
+          </div>
+        </div>
+      `);
+    } else if (type === 'drone') {
+      openModal(`
+        <div style="color: #000000;">
+          <h2 style="font-size: 1.6rem; font-weight: 900; color: #000000; margin-bottom: 0.4rem;">ROS2 Autonomous Drone &amp; Gazebo Telemetry</h2>
+          <div style="font-size: 0.85rem; color: #27272a; font-family: var(--font-code); font-weight: 700; margin-bottom: 1.25rem;">ROS2 + Gazebo 3D Simulation + LSTM Spatial-Temporal Trajectory</div>
+          <p style="color: #27272a; font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem;">
+            Spatial-temporal trajectory predictor integrated into ROS2 nodes for autonomous UAV obstacle avoidance in simulated Gazebo environments with PyTorch LSTM time-series forecasting.
+          </p>
+          <div style="background: rgba(0, 0, 0, 0.05); padding: 1rem; border-radius: 8px; border: 1px solid rgba(0, 0, 0, 0.2); font-family: var(--font-code); font-size: 0.82rem; color: #000000;">
+            <strong>Key Stack:</strong> ROS2 Humble | Gazebo 11 | LSTM PyTorch | C++ ROS Flight Nodes
+          </div>
+        </div>
+      `);
+    } else if (type === 'movie' || type === 'movie-booking') {
+      openModal(`
+        <div style="color: #000000;">
+          <h2 style="font-size: 1.6rem; font-weight: 900; color: #000000; margin-bottom: 0.4rem;">Movie Ticket Booking System</h2>
+          <div style="font-size: 0.85rem; color: #27272a; font-family: var(--font-code); font-weight: 700; margin-bottom: 1.25rem;">High-Concurrency Relational DBMS Architecture</div>
+          <p style="color: #27272a; font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem;">
+            Relational database architecture engineered to handle concurrent ticket reservations without seat conflict race conditions. Utilizes ACID-compliant transactions and optimized query plans.
+          </p>
+          <div style="background: rgba(0, 0, 0, 0.05); padding: 1rem; border-radius: 8px; border: 1px solid rgba(0, 0, 0, 0.2); font-family: var(--font-code); font-size: 0.82rem; color: #000000;">
+            <strong>Key Metrics:</strong> 0% Double-Booking Conflict | &lt; 20ms Stored Procedure Execution | ACID Isolation
+          </div>
+        </div>
+      `);
+    } else if (type === 'hospital') {
+      openModal(`
+        <div style="color: #000000;">
+          <h2 style="font-size: 1.6rem; font-weight: 900; color: #000000; margin-bottom: 0.4rem;">Hospital Management System</h2>
+          <div style="font-size: 0.85rem; color: #27272a; font-family: var(--font-code); font-weight: 700; margin-bottom: 1.25rem;">SQL &amp; Relational Database Architecture</div>
+          <p style="color: #27272a; font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem;">
+            End-to-end relational database management system for hospital operations, patient health records, staff scheduling, automated billing, and role-based data view security.
+          </p>
+          <div style="background: rgba(0, 0, 0, 0.05); padding: 1rem; border-radius: 8px; border: 1px solid rgba(0, 0, 0, 0.2); font-family: var(--font-code); font-size: 0.82rem; color: #000000;">
+            <strong>Key Stack:</strong> PostgreSQL | SQL Stored Procedures | RBAC Security | ER Data Modeling
+          </div>
+        </div>
+      `);
+    }
   });
 }
 

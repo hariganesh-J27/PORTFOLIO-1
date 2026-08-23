@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ScrollVelocity from './components/ScrollVelocity';
 import About from './components/About';
+import Services from './components/Services';
 import Education from './components/Education';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
@@ -49,6 +50,7 @@ export default function App() {
         />
         <About />
         <Education />
+        <Services />
         <Skills />
         <Projects />
         <Certifications />

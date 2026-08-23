@@ -1,0 +1,244 @@
+/* React Bits Pro Simple Graph Component Styles */
+.simple-graph-container {
+  position: relative;
+  width: 100%;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  background: #FDFFF5;
+  padding: 2.2rem 2.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  margin-top: 2rem;
+  transition: all 0.4s ease;
+}
+
+.simple-graph-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.simple-graph-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  color: #000000;
+  padding: 0.35rem 0.85rem;
+  border-radius: 50px;
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.simple-graph-svg-wrap {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+  user-select: none;
+}
+
+.simple-graph-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  display: block;
+}
+
+.graph-grid-line {
+  stroke: rgba(0, 0, 0, 0.08);
+  stroke-dasharray: 4 4;
+  stroke-width: 1;
+}
+
+.graph-axis-text {
+  font-family: var(--font-code);
+  font-size: 11px;
+  font-weight: 700;
+  fill: #71717a;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.graph-path-line {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: graphDraw 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes graphDraw {
+  0% { stroke-dashoffset: 1200; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.graph-area-fill {
+  opacity: 0;
+  animation: graphFadeIn 1.5s ease 0.5s forwards;
+}
+
+@keyframes graphFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 0.85; }
+}
+
+.graph-node-group {
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.graph-node-dot {
+  fill: #FDFFF5;
+  stroke: #000000;
+  stroke-width: 3;
+  r: 7;
+  transition: all 0.3s ease;
+}
+
+.graph-node-ping {
+  fill: #000000;
+  opacity: 0.2;
+  r: 14;
+  animation: nodePing 2.5s infinite ease-in-out;
+  transform-origin: center;
+}
+
+@keyframes nodePing {
+  0%, 100% { transform: scale(0.9); opacity: 0.15; }
+  50% { transform: scale(1.4); opacity: 0.35; }
+}
+
+.graph-node-group:hover .graph-node-dot,
+.graph-node-group.active .graph-node-dot {
+  fill: #000000;
+  stroke: #FDFFF5;
+  r: 9;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.4));
+}
+
+.graph-node-group:hover .graph-node-ping,
+.graph-node-group.active .graph-node-ping {
+  opacity: 0.45;
+  transform: scale(1.6);
+}
+
+.simple-graph-tooltip {
+  position: absolute;
+  transform: translate(-50%, 0);
+  background: #000000;
+  color: #FDFFF5;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), left 0.3s ease, top 0.3s ease;
+  z-index: 20;
+  white-space: nowrap;
+}
+
+.simple-graph-tooltip.visible {
+  opacity: 1;
+}
+
+.simple-graph-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #000000;
+}
+
+.simple-graph-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .simple-graph-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.graph-milestone-card {
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  background: #FDFFF5;
+  padding: 1.75rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.graph-milestone-card:hover,
+.graph-milestone-card.active {
+  background: #000000 !important;
+  border-color: #000000 !important;
+  transform: translateY(-5px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.2);
+}
+
+.graph-milestone-card:hover h3,
+.graph-milestone-card.active h3 {
+  color: #FDFFF5 !important;
+}
+
+.graph-milestone-card:hover .milestone-degree,
+.graph-milestone-card.active .milestone-degree {
+  color: #d4d4d8 !important;
+}
+
+.graph-milestone-card:hover .milestone-year-badge,
+.graph-milestone-card.active .milestone-year-badge {
+  background: #FDFFF5 !important;
+  color: #000000 !important;
+  border-color: #FDFFF5 !important;
+}
+
+.graph-milestone-card:hover .milestone-icon-wrap,
+.graph-milestone-card.active .milestone-icon-wrap {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #FDFFF5 !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.graph-milestone-card:hover svg,
+.graph-milestone-card.active svg {
+  stroke: #FDFFF5 !important;
+}
+
+.milestone-year-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 50px;
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  color: #000000;
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  transition: all 0.3s ease;
+}
