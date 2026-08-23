@@ -1,0 +1,193 @@
+.parallax-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 2rem 0;
+  overflow: hidden;
+  user-select: none;
+}
+
+.parallax-carousel-viewport {
+  width: 100%;
+  overflow: hidden;
+  cursor: grab;
+  padding: 1.5rem 0;
+  perspective: 1200px;
+}
+
+.parallax-carousel-viewport:active {
+  cursor: grabbing;
+}
+
+.parallax-carousel-track {
+  display: flex;
+  gap: 2rem;
+  will-change: transform;
+  transform-style: preserve-3d;
+  padding-left: calc(50vw - 180px);
+}
+
+.parallax-carousel-card {
+  flex-shrink: 0;
+  border-radius: 20px;
+  background: rgba(14, 14, 18, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, border-color 0.4s ease;
+  transform-style: preserve-3d;
+  backdrop-filter: blur(12px);
+}
+
+.parallax-carousel-card.is-active {
+  border-color: #00ff66;
+  box-shadow: 0 25px 60px rgba(0, 255, 102, 0.25), 0 0 30px rgba(0, 255, 102, 0.15);
+}
+
+.parallax-card-media-wrap {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  background: #000000;
+}
+
+.parallax-card-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+  transition: transform 0.1s ease-out;
+}
+
+.parallax-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(14, 14, 18, 0.95) 100%);
+}
+
+.parallax-card-category {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+
+.parallax-card-metric {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 255, 102, 0.15);
+  border: 1px solid rgba(0, 255, 102, 0.4);
+  color: #00ff66;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+}
+
+.parallax-card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.parallax-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 0.35rem 0;
+}
+
+.parallax-card-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  color: #a1a1aa;
+  margin: 0 0 1.25rem 0;
+}
+
+.parallax-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: auto;
+}
+
+.parallax-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #d4d4d8;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+}
+
+.parallax-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.parallax-nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(14, 14, 18, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.parallax-nav-btn:hover:not(:disabled) {
+  background: #00ff66;
+  color: #050505;
+  border-color: #00ff66;
+  box-shadow: 0 0 20px rgba(0, 255, 102, 0.4);
+}
+
+.parallax-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.parallax-carousel-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.parallax-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.parallax-dot.is-active {
+  width: 28px;
+  border-radius: 10px;
+  background: #00ff66;
+  box-shadow: 0 0 12px #00ff66;
+}
